@@ -14,15 +14,15 @@ _The decision behind the design and implementation of the application were made 
 
 **Functional Requirements**
 1. Conveyer Belt Behaviour
-> [!NOTE] 
-> Default Case: 100 ticks
+  > [!NOTE] 
+  > Default Case: 100 ticks
 - Components (`A`, `B`, `None`) will appear in the slots on the belt.
 - The belt shifts forward one tick at a time.
 
 2. Worker Behaviour
-> [!NOTE] 
-> Default case: 3 pairs of workers, one on each side of the belt.
-> Assumption: Clearance of components off of the belt is the main concern behind scoring system of the workers, which later determines the actions taken by them.
+  > [!NOTE] 
+  > Default case: 3 pairs of workers, one on each side of the belt.
+  > Assumption: Clearance of components off of the belt is the main concern behind scoring system of the workers, which later determines the actions taken by them.
 - Workers exist on each side of the belt.
 - Workers may pick up components (`A`, `B`) directly in front of them at their respective position.
 - Workers can hold both `A` and `B` to form product `P` in 4 ticks.
