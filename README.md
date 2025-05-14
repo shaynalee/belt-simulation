@@ -3,30 +3,30 @@
 Firstly, thank you, I had fun doing the exercise as it pushed me to consider various cases and actions when implementing this out. 
 
 
-## General Notes
+> [!IMPORTANT]
+> To run the application, use Python v3.10+ and run `python -m pip install -r requirements.txt`
+> All the tests are in `tests\` directory. Run `pytest` to run the tests.  
+> You may run the simulation by entering `python -m belt_simulation` in the terminal. Although by default _tick_ has been set to 100 and _belt-length_ to 3, user may re-adjust these values via teh terminal. E.g.: `python -m belt_simulator --ticks 100 --belt-length 3`. 
 
 
-- To run the application, use Python v3.10+ and run `python -m pip install -r requirements.txt`
-- All the tests are in `tests\` directory. Run `pytest` to run the tests.  
-- You may run the simulation by entering `python -m belt_simulation` in the terminal. Although by default _tick_ has been set to 100 and _belt-length_ to 3, user may re-adjust these values via teh terminal. E.g.: `python -m belt_simulator --ticks 100 --belt-length 3`. It is basic and does not handle exceptions.
-- `tqvm` and `logging` has been added to track the progress of the main loop in the application.
-
-
-## Determined Functional and Non-Functional Requirements
-__The design and implementation of the application were made based off these assumptions.__
+## Functional and Non-Functional Requirements
+_The decision behind the design and implementation of the application were made based off these assumptions._
 
 **Functional Requirements**
 1. Conveyer Belt Behaviour
+> [!NOTE] 
+> Default Case: 100 ticks
 - Components (`A`, `B`, `None`) will appear in the slots on the belt.
 - The belt shifts forward one tick at a time.
-- Default Case: 100 ticks
 
 2. Worker Behaviour
+> [!NOTE] 
+> Default case: 3 pairs of workers, one on each side of the belt.
+> Assumption: Clearance of components off of the belt is the main concern behind scoring system of the workers, which later determines the actions taken by them.
 - Workers exist on each side of the belt.
 - Workers may pick up components (`A`, `B`) directly in front of them at their respective position.
 - Workers can hold both `A` and `B` to form product `P` in 4 ticks.
 - Upon assembly, worker puts the product `P` back onto the belt.
-- Default case: 3 pairs of workers, one on each side of the belt.
 
 3. Track Count
 - Count no. of assembled products.
