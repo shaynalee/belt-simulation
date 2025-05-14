@@ -28,7 +28,6 @@ class Belt:
         for i in range(self.length):
             if self.slots[i] == 'P':
                 self.assembled_count += 1
-                # self.slots[i] = None
 
     def print_state(self, tick, label = ""):
         visual = ''.join([c if c else '-' for c in self.slots])

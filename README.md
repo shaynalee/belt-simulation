@@ -3,16 +3,62 @@
 Firstly, thank you, I had fun doing the exercise as it pushed me to consider various cases and actions when implementing this out. 
 
 
-## GENERAL NOTES
+## General Notes
 
 
-- To run the application, use Python >= v3.10.5 and run `python -m pip install -r requirements.txt`
+- To run the application, use Python v3.10+ and run `python -m pip install -r requirements.txt`
 - All the tests are in `tests\` directory. Run `pytest` to run the tests.  
 - You may run the simulation by entering `python -m belt_simulation` in the terminal. Although by default _tick_ has been set to 100 and _belt-length_ to 3, user may re-adjust these values via teh terminal. E.g.: `python -m belt_simulator --ticks 100 --belt-length 3`. It is basic and does not handle exceptions.
 - `tqvm` and `logging` has been added to track the progress of the main loop in the application.
 
 
-## EXERCISE
+## Determined Functional and Non-Functional Requirements
+__The design and implementation of the application were made based off these assumptions.__
+
+**Functional Requirements**
+1. Conveyer Belt Behaviour
+- Components (`A`, `B`, `None`) will appear in the slots on the belt.
+- The belt shifts forward one tick at a time.
+- Default Case: 100 ticks
+
+2. Worker Behaviour
+- Workers exist on each side of the belt.
+- Workers may pick up components (`A`, `B`) directly in front of them at their respective position.
+- Workers can hold both `A` and `B` to form product `P` in 4 ticks.
+- Upon assembly, worker puts the product `P` back onto the belt.
+- Default case: 3 pairs of workers, one on each side of the belt.
+
+3. Track Count
+- Count no. of assembled products.
+- Count no. of components lost due to not being picked up.
+
+4. Run Simulation for Configurable Ticks and Belt Length
+- Accept `--ticks` and `--belt-length` as command-line parameters.
+
+5. Support Unit Testing
+- Provide testable logic for all components.
+
+**Non-Functional Requirements**
+1. Maintainability
+- Code is refactored to be modular and organized by their responsibility (`belt.py`, `worker.py`, etc.)
+- Uses unit tests and fixtures for regression protection.
+- Has a simulation of the belt behaviour in `simulator.py` of the before and after of workers' actions take place in `line 25` and `line 58`. Currently commented out to prevent a wall of text. 
+
+2. Readability
+- Follows standard naming conventions and OOP principles.
+- Has clear comments, logging and test outputs. 
+
+3. Testability
+- Pytest framework used with fixtures.
+
+4. Configurability
+- Simulation behaviour (tick count, belt length) is adjustable via command line
+
+5. Extensibility
+- Easy to add new worker types, belt behaviours or scoring logic to determine which worker to priotize picking/replacing the component.
+
+
+## Exercise
 
 There is a factory production line around a single a conveyor belt.
 
