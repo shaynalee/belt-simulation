@@ -1,20 +1,19 @@
 # PLEASE READ
-# PLEASE READ
 
 Firstly, thank you, I had fun doing the exercise as it pushed me to consider various cases and actions when implementing this out. 
 
-=============
-GENERAL NOTES
-=============
+
+## GENERAL NOTES
+
 
 - To run the application, use Python >= v3.10.5 and run `python -m pip install -r requirements.txt`
 - All the tests are in `tests\` directory. Run `pytest` to run the tests.  
 - You may run the simulation by entering `python -m belt_simulation` in the terminal. Although by default _tick_ has been set to 100 and _belt-length_ to 3, user may re-adjust these values via teh terminal. E.g.: `python -m belt_simulator --ticks 100 --belt-length 3`. It is basic and does not handle exceptions.
 - `tqvm` and `logging` has been added to track the progress of the main loop in the application.
 
-========
-EXERCISE
-========
+
+## EXERCISE
+
 There is a factory production line around a single a conveyor belt.
 
 Components (of type A and B) come onto the start of the belt at random intervals; workers must take one component of each type from the belt as they come past, and combine them to make a finished product.
