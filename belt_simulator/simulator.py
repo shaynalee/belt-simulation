@@ -9,20 +9,26 @@ from belt_simulator.worker import Worker
 
 logging.basicConfig(level = logging.INFO)
 
-def run_simulation(ticks = 100, belt_length = 3):
+def run_simulation(ticks = 100, belt_length = 3, belt = None, all_workers = None, available_workers = None):
     start_time = time.time()
-    belt = Belt(belt_length, ['A', 'B', None])
 
-    left_workers = [Worker(i, 'left') for i in range(belt_length)]
-    right_workers = [Worker(i, 'right') for i in range(belt_length)]
-    all_workers = left_workers + right_workers
-    available_workers = {i: set() for i in range(belt_length)}
-    for worker in all_workers:
-        available_workers[worker.position].add(worker)
+    # If statements are for mock cases
+    if belt is None:
+        belt = Belt(belt_length, ['A', 'B', None])
+
+    if all_workers is None:
+        left_workers = [Worker(i, 'left') for i in range(belt_length)]
+        right_workers = [Worker(i, 'right') for i in range(belt_length)]
+        all_workers = left_workers + right_workers
+
+    if available_workers is None:
+        available_workers = {i: set() for i in range(belt_length)}
+        for worker in all_workers:
+            available_workers[worker.position].add(worker)
 
     for t in tqdm(range(ticks)):
         claimed_slot = {}
-        # belt.print_state(t, "Before")
+        belt.print_state(t, "Before")
 
         for i in range(belt_length):
             component = belt[i]
@@ -43,7 +49,7 @@ def run_simulation(ticks = 100, belt_length = 3):
                 elif component in worker.holding():
                     score = 0
 
-                heapq.heappush(heap, (-score, random.random(), worker))
+                heapq.heappush(heap, (-score, id(worker), worker))
 
             if heap:
                 _, _, best_worker = heapq.heappop(heap)
@@ -55,9 +61,9 @@ def run_simulation(ticks = 100, belt_length = 3):
         for worker in all_workers:
             worker.action(belt, available_workers)
 
-        # belt.print_state(t, "After")
-        belt.clear_products()
+        belt.print_state(t, "After")
         belt.shift()
 
-    belt.print_state(t, f"Assembled Count: {belt.assembled_count}, Lost Count: {belt.lost_count}")
+    logging.info(f"Assembled Count: {belt.assembled_count}, Lost Count: {belt.lost_count}")
     logging.info(f"Elapsed Time: {time.time() - start_time}")
+    return {"Assembled": belt.assembled_count, "Lost": belt.lost_count}

@@ -3,10 +3,10 @@
 Firstly, thank you, I had fun doing the exercise as it pushed me to consider various cases and actions when implementing this out. 
 
 
-> [!IMPORTANT]
-> To run the application, use Python v3.10+ and run `python -m pip install -r requirements.txt`
-> All the tests are in `tests\` directory. Run `pytest` to run the tests.  
-> You may run the simulation by entering `python -m belt_simulation` in the terminal. Although by default _tick_ has been set to 100 and _belt-length_ to 3, user may re-adjust these values via teh terminal. E.g.: `python -m belt_simulator --ticks 100 --belt-length 3`. 
+## IMPORTANT NOTE
+- To run the application, use Python v3.10+ and run `python -m pip install -r requirements.txt`.
+- You may run the simulation by entering `python -m belt_simulation` in the terminal. Although by default _tick_ has been set to 100 and _belt-length_ to 3, user may re-adjust these values via the terminal. E.g.: `python -m belt_simulator --ticks 100 --belt-length 3`. 
+- All the tests are in `tests\` directory. Run `pytest` to run the tests.  
 
 
 ## Functional and Non-Functional Requirements
@@ -14,35 +14,33 @@ _The decision behind the design and implementation of the application were made 
 
 **Functional Requirements**
 1. Conveyer Belt Behaviour
-  > [!NOTE] 
-  > Default Case: 100 ticks
+- Default Case: 100 ticks
 - Components (`A`, `B`, `None`) will appear in the slots on the belt.
-- The belt shifts forward one tick at a time.
+- The belt shifts **right to left** one tick at a time.
 
 2. Worker Behaviour
-  > [!NOTE] 
-  > Default case: 3 pairs of workers, one on each side of the belt.
-  > Assumption: Clearance of components off of the belt is the main concern behind scoring system of the workers, which later determines the actions taken by them.
+- Default case: 3 pairs of workers, one on each side of the belt.
+- Assumption: Clearance of components off of the belt is the main concern behind scoring system of the workers, which later determines the actions taken by them using a max heap.
 - Workers exist on each side of the belt.
 - Workers may pick up components (`A`, `B`) directly in front of them at their respective position.
 - Workers can hold both `A` and `B` to form product `P` in 4 ticks.
 - Upon assembly, worker puts the product `P` back onto the belt.
 
 3. Track Count
-- Count no. of assembled products.
-- Count no. of components lost due to not being picked up.
+- Count no. of assembled products upon it being shifted off at the end of the belt.
+- Count no. of components lost due to not being picked up at the end of the belt.
 
 4. Run Simulation for Configurable Ticks and Belt Length
 - Accept `--ticks` and `--belt-length` as command-line parameters.
 
-5. Support Unit Testing
-- Provide testable logic for all components.
+5. Support Unit Testing, Basic Integration and Smoke Testing
+- Provide testable logic for all components with a 100% coverage.
+- Has a simulation in `simulator.py` using print statements to visualize the before and after of belt states at each tick in `line 31` and `line 64`. (Currently commented out to prevent a wall of text.)
 
 **Non-Functional Requirements**
 1. Maintainability
 - Code is refactored to be modular and organized by their responsibility (`belt.py`, `worker.py`, etc.)
 - Uses unit tests and fixtures for regression protection.
-- Has a simulation of the belt behaviour in `simulator.py` of the before and after of workers' actions take place in `line 25` and `line 58`. Currently commented out to prevent a wall of text. 
 
 2. Readability
 - Follows standard naming conventions and OOP principles.

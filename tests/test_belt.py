@@ -13,13 +13,33 @@ def test_initialization(belt):
     for item in belt.slots:
         assert item in ['A', 'B', None]
 
-def test_shift(belt):
+def test_component_generator(belt):
+    assert belt.component_generator() in ['A', 'B', None]
+
+def test_shift_lost_count(belt):
+    belt.slots = ['B', 'P', 'A']
     belt.shift()
+
     assert belt.lost_count == 1
     assert len(belt) == 3
 
-def test_clear_products(belt):
+def test_shift_assembled_count(belt):
     belt.slots = ['P', 'P', 'A']
-    belt.clear_products()
-    assert belt.assembled_count == 2
+    belt.shift()
 
+    assert belt.assembled_count == 1
+    assert len(belt) == 3
+
+def test_empty_slots_error(capsys):
+    belt = Belt(0, ['A', 'B'])
+    belt.slots = []
+    belt.shift()
+
+    captured = capsys.readouterr()
+    assert "Error: Belt shift failed" in captured.out
+
+# Added for 100% coverage lol
+def test_belt_get_set():
+    belt = Belt(3, ['A', 'B'])
+    belt.set(1, 'B')
+    assert belt.get(1) == 'B'
