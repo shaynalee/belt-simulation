@@ -1,12 +1,13 @@
 # PLEASE READ
 
-Firstly, thank you, I had fun doing the exercise as it pushed me to consider various cases and actions when implementing this out. 
+Firstly, thank you, I had fun doing the exercise as it made me think of how an actual factory would work and it pushed me to consider various cases and actions when implementing this out. 
 
 
 ## IMPORTANT NOTE
 - To run the application, use Python v3.10+ and run `python -m pip install -r requirements.txt`.
-- You may run the simulation by entering `python -m belt_simulation` in the terminal. Although by default _tick_ has been set to 100 and _belt-length_ to 3, user may re-adjust these values via the terminal. E.g.: `python -m belt_simulator --ticks 100 --belt-length 3`. 
-- All the tests are in `tests\` directory. Run `pytest` to run the tests.  
+- You may run the simulation by entering `python -m belt_simulation` in the command-line. Although by default _tick_ has been set to 100 and _belt-length_ to 3, user may re-adjust these values via the terminal. E.g.: `python -m belt_simulator --ticks 100 --belt-length 3`. 
+- All the tests are in `tests\` directory. Run `pytest` to run the tests.
+- If you'd like to see the test coverage, run `pytest --cov=belt_simulator --cov-report=term-missing` in the command-line.
 
 
 ## Functional and Non-Functional Requirements
@@ -20,7 +21,8 @@ _The decision behind the design and implementation of the application were made 
 
 2. Worker Behaviour
 - Default case: 3 pairs of workers, one on each side of the belt.
-- Assumption: Clearance of components off of the belt is the main concern behind scoring system of the workers, which later determines the actions taken by them using a max heap.
+- Assumption 1: The number of workers is determined by the working length of the conveyer belt. E.g: If belt length = 3, there are 3 pairs of workers. If belt length = 100, there are 100 pairs of workers.
+- Assumption 2: Efficient assembly, clearance of components and minimization of redundant actions is decided by a scoring system of the workers, which later determines the actions taken by them using a max heap. This ensures that only 1 worker at a certain belt position may take action towards the component on the belt.
 - Workers exist on each side of the belt.
 - Workers may pick up components (`A`, `B`) directly in front of them at their respective position.
 - Workers can hold both `A` and `B` to form product `P` in 4 ticks.
