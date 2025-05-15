@@ -22,11 +22,12 @@ _The decision behind the design and implementation of the application were made 
 2. Worker Behaviour
 - Default case: 3 pairs of workers, one on each side of the belt.
 - Assumption 1: The number of workers is determined by the working length of the conveyer belt. E.g: If belt length = 3, there are 3 pairs of workers. If belt length = 100, there are 100 pairs of workers.
-- Assumption 2: Efficient assembly, clearance of components and minimization of redundant actions is decided by a scoring system of the workers, which later determines the actions taken by them using a max heap. This ensures that only 1 worker at a certain belt position may take action towards the component on the belt.
+- Assumption 2: Efficient assembly, clearance of components and minimization of redundant actions is decided by a scoring system of the workers, which later determines the actions taken by them using a max heap.  So, a greedy approach was taken to prioritize completing assembling of a product to place it back on the belt. 
 - Workers exist on each side of the belt.
 - Workers may pick up components (`A`, `B`) directly in front of them at their respective position.
 - Workers can hold both `A` and `B` to form product `P` in 4 ticks.
 - Upon assembly, worker puts the product `P` back onto the belt.
+- Only 1 worker at a certain belt slot may take action towards the component or empty slot on the belt.
 
 3. Track Count
 - Count no. of assembled products upon it being shifted off at the end of the belt.
@@ -38,6 +39,8 @@ _The decision behind the design and implementation of the application were made 
 5. Support Unit Testing, Basic Integration and Smoke Testing
 - Provide testable logic for all components with a 100% coverage.
 - Has a simulation in `simulator.py` using print statements to visualize the before and after of belt states at each tick in `line 31` and `line 64`. (Currently commented out to prevent a wall of text.)
+- Can run tests normally in the command-line using `pytest`. Else, use `pytest --cov=belt_simulator --cov-report=term-missing` to see the full coverage.
+
 
 **Non-Functional Requirements**
 1. Maintainability
